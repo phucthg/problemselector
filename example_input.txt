@@ -1,0 +1,6 @@
+Aria
+tourist Benq
+2000 2400
+geometry,brute force,number theory
+*special,fft
+5
