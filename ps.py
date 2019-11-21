@@ -17,7 +17,7 @@ import requests
 import random
 def get_solved(account):
   temp=json.loads(requests.get("https://codeforces.com/api/user.status?handle="+account).text)
-  if temp["status"]!="OK":
+  while temp["status"]!="OK":
     sleep(1000)
     temp=json.loads(requests.get("https://codeforces.com/api/user.status?handle="+account).text)
   submissions=temp["result"]
