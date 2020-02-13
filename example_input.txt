@@ -5,6 +5,6 @@ geometry,brute force,number theory
 *special,fft
 5
 
-#Find all the problems that was solved by Aria with at least one of the tags geometry, brute force, number theory, with none of the tags
-#*special, fft, that was not solved by neither tourist nor Benq, with rating between 2000 and 2400 and print at most 5 random problems out
+#Find all the problems that was solved by Umi with at least one of the tags geometry, brute force, number theory, with none of the tags
+#*special, fft, that was solved by neither tourist nor Benq, with rating between 2000 and 2400 and print at most 5 random problems out
 #of the problems found
