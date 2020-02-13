@@ -9,7 +9,7 @@
 #list of tag that should be excluded
 #(a problem is included if it has at least one tag that should be included and no tag that should be excluded
 #tags in the same line should be separated using a comma without any extra space)
-#number of output: 0 for all problems
+#number of output (randomly chosen, use 0 for all problems)
 import time
 import json
 from lxml import html
