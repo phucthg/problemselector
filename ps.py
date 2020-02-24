@@ -9,17 +9,23 @@
 #list of tag that should be excluded
 #(a problem is included if it has at least one tag that should be included and no tag that should be excluded
 #tags in the same line should be separated using a comma without any extra space)
-#number of output (randomly chosen, use 0 for all problems)
+#number of output: 0 for all problems
 import time
 import json
 from lxml import html
 import requests
 import random
 def get_solved(account):
-  temp=json.loads(requests.get("https://codeforces.com/api/user.status?handle="+account).text)
-  while temp["status"]!="OK":
-    sleep(1000)
-    temp=json.loads(requests.get("https://codeforces.com/api/user.status?handle="+account).text)
+  ok=False
+  temp=0
+  while not ok:
+    try:
+        print(account)
+        temp=json.loads(requests.get("https://codeforces.com/api/user.status?handle="+account, timeout=10).text)
+        if(temp['status']=='OK'):
+            ok=True
+    except:
+        print("error!")
   submissions=temp["result"]
   res=[]
   for s in submissions:
@@ -37,11 +43,22 @@ def get_solved_list(accounts):
   return res
 def have_common_element(a, b):
   for x in a:
+    if(x=="everything"):
+      return True
+  for x in b:
+    if(x=="everything"):
+      return True
+  for x in a:
     if x in b:
       return True
   return False
 def print_pretty(p):
   print(str(p["contestId"])+p["index"]+" "+str(p["rating"])+" tags: "+str(p["tags"]))
+def print_clickable_contest(p):
+  print("https://codeforces.com/contest/"+str(p["contestId"])+"/problem/"+p["index"])
+def print_clickable_problemset(p):
+  print("https://codeforces.com/problemset/problem/"+str(p["contestId"])+"/"+p["index"])
+
 SOLVED=input().split()
 UNSOLVED=input().split()
 solved=get_solved_list(SOLVED)
@@ -63,8 +80,14 @@ random.shuffle(res)
 size=int(input())
 if size==0:
   size=len(res)
+res=res[0:size];
 for p in res:
   print_pretty(p)
-  size-=1
-  if(size==0):
-    break
+extra=int(input())
+if(extra==1):
+  for p in res:
+    print_clickable_contest(p);
+elif(extra==2):
+  for p in res:
+    print_clickable_problemset(p);
+    
